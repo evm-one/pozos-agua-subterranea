@@ -1,0 +1,11 @@
+# Documentos internos de estrategia — NO deben publicarse en un repo público.
+# Contienen el research de competencia, el copy maestro y notas de cliente.
+assets/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Temporales
+*.tmp
+*.log

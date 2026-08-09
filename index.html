@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pozos de Agua Subterránea | Perforación de Pozos Profundos</title>
+<meta name="description" content="Perforación y equipamiento de pozos profundos, estudios hidráulicos y geohidrológicos y obras hidráulicas.">
+
+<!-- PREVIEW — QUITAR ANTES DE LANZAR.
+     Impide que buscadores indexen la versión de trabajo. Mientras la página
+     muestre nombres de cliente sin autorización confirmada e imágenes
+     generadas por IA, no debe aparecer en resultados de búsqueda. -->
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Marca que el JS está activo ANTES del primer render: el estado oculto
+     del scroll-reveal depende de esta clase, así que sin JS el corte
+     estratigráfico se muestra completo y no hay parpadeo. -->
+<script>document.documentElement.classList.add('js-anim');</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        tierra:    { 700:'#8A5A38', 500:'#B07A4E' },
+        marfil:    '#E9DFD2',
+        marfilAlto:'#F5EFE7',
+        ink:       '#2A2118',
+        cafe:      '#5E3B22',
+        terracota: '#B5552E',
+        agua:      { 400:'#3E9BC4', 500:'#2E7DA6', 600:'#256685' },
+        wa:        '#25D366',
+        linea:     '#E4DACD',
+        estrato:   { 1:'#DCCDB9', 2:'#C9A985', 3:'#B07A4E', 4:'#8A5A38' }
+      },
+      fontFamily: {
+        display: ['Archivo','system-ui','sans-serif'],
+        sans:    ['"IBM Plex Sans"','system-ui','sans-serif'],
+        mono:    ['"IBM Plex Mono"','ui-monospace','monospace']
+      },
+      maxWidth: { content: '1200px' }
+    }
+  }
+}
+</script>
+
+<style>
+  :root{
+    --tierra-700:#8A5A38; --tierra-500:#B07A4E; --marfil:#E9DFD2; --blanco:#FFFFFF;
+    --ink:#2A2118; --cafe:#5E3B22; --terracota:#B5552E;
+    --agua-500:#2E7DA6; --agua-600:#256685; --linea:#E4DACD;
+  }
+  html{ scroll-behavior:smooth; }
+  body{ background:#fff; color:var(--ink); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+
+  /* Display: grotesca expandida — placa de equipo industrial, no serif editorial */
+  .display{ font-family:'Archivo',system-ui,sans-serif; font-stretch:115%; font-weight:800;
+            letter-spacing:-0.02em; line-height:1.05; }
+  .display-md{ font-family:'Archivo',system-ui,sans-serif; font-stretch:110%; font-weight:700;
+            letter-spacing:-0.01em; line-height:1.15; }
+  .eyebrow{ font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:12px; font-weight:500;
+            text-transform:uppercase; letter-spacing:.14em; color:#9A4726; }
+
+  /* Foco visible en todo elemento interactivo */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
+  textarea:focus-visible, summary:focus-visible{
+    outline:3px solid var(--agua-500); outline-offset:3px; border-radius:4px;
+  }
+  .skip{ position:absolute; left:-9999px; top:0; z-index:100; }
+  .skip:focus{ left:16px; top:16px; background:#fff; color:var(--cafe);
+               padding:12px 20px; border:2px solid var(--cafe); border-radius:8px; }
+
+  /* Estratos del hero */
+  /* En móvil el primer estrato es más alto para que el texto en café
+     conserve su contraste (6.3:1) y no invada la banda siguiente. */
+  .strata{ background:linear-gradient(180deg,
+            #DCCDB9 0%, #DCCDB9 62%, #C9A985 62%, #C9A985 76%,
+            #B07A4E 76%, #B07A4E 89%, #8A5A38 89%, #8A5A38 100%); }
+  @media (min-width:640px){
+    .strata{ background:linear-gradient(180deg,
+              #DCCDB9 0%, #DCCDB9 34%, #C9A985 34%, #C9A985 58%,
+              #B07A4E 58%, #B07A4E 80%, #8A5A38 80%, #8A5A38 100%); }
+  }
+
+  /* ═══ SIGNATURE — corte estratigráfico de trayectoria ═══
+     Cada etapa es un estrato; la altura del estrato es proporcional a su
+     duración. El descenso avanza en el tiempo y termina en el acuífero. */
+  .tl{ list-style:none; margin:0; padding:0; }
+  .tl-row{ min-height:var(--h); align-items:stretch; }
+  .tl-band{ position:relative; min-height:100%; }
+  .tl-fill{ position:absolute; inset:0; transform-origin:top;
+            box-shadow:inset 0 1px 0 rgba(255,255,255,.45); }
+  /* Perforación: el barreno continuo que atraviesa todos los estratos */
+  .tl-fill::after{ content:''; position:absolute; top:0; bottom:0; left:50%;
+                   margin-left:-1px; width:2px; background:rgba(42,33,24,.16); }
+  .tl-mark{ position:absolute; top:-11px; left:50%; margin-left:-11px;
+            width:22px; height:22px; display:block; z-index:2; }
+  .tl-mark svg{ width:100%; height:100%; display:block; }
+  .tl-mark--agua{ top:-14px; margin-left:-14px; width:28px; height:28px; }
+
+  .tl-year{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:500;
+            color:var(--agua-600); line-height:1.35; padding-top:1px; }
+  .tl-title{ font-family:'Archivo',system-ui,sans-serif; font-stretch:110%; font-weight:700;
+             font-size:17px; line-height:1.25; color:var(--cafe); margin-bottom:5px; }
+  .tl-desc{ font-size:15px; line-height:1.6; color:var(--ink); max-width:52ch; }
+  .tl-text{ padding-bottom:26px; }
+  @media (min-width:640px){ .tl-year{ font-size:13px; } .tl-text{ padding-bottom:22px; } }
+  .tl-agua-nota{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.08em;
+                 text-transform:uppercase; color:var(--agua-600); margin-top:10px; }
+
+  /* Scroll-reveal: se aplica solo si (a) el usuario no pidió reducir
+     movimiento y (b) el JS corrió y marcó <html class="js-anim">.
+     Sin JS no hay estado oculto, así que el corte nunca queda invisible. */
+  @media (prefers-reduced-motion: no-preference){
+    .js-anim .tl-fill{ transform:scaleY(0);
+              transition:transform .6s cubic-bezier(.22,.61,.36,1); }
+    .js-anim .tl-mark{ opacity:0; transition:opacity .3s ease-out .18s; }
+    .js-anim .tl-mark svg{ transform:scale(.55);
+                  transition:transform .35s cubic-bezier(.34,1.4,.64,1) .18s; }
+    .js-anim .tl-text, .js-anim .tl-year{ opacity:0; transform:translateY(8px);
+              transition:opacity .5s ease-out .1s, transform .5s ease-out .1s; }
+    .tl-row.is-in .tl-fill{ transform:scaleY(1); }
+    .tl-row.is-in .tl-mark{ opacity:1; }
+    .tl-row.is-in .tl-mark svg{ transform:scale(1); }
+    .tl-row.is-in .tl-text, .tl-row.is-in .tl-year{ opacity:1; transform:none; }
+  }
+
+  /* Pie de foto técnico bajo cada imagen de galería */
+  .ph-cap{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em; color:#6F5238; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important;
+                          transition-duration:.001ms !important; }
+    #rail .cursor,#rail .readout{ transition:none; }
+  }
+</style>
+</head>
+
+<body class="font-sans antialiased">
+
+<a href="#contenido" class="skip">Saltar al contenido</a>
+
+<!-- ═══════════ 01 — HEADER STICKY ═══════════ -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-linea">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8">
+    <div class="flex items-center justify-between h-[72px] gap-4">
+
+      <!-- Isotipo real del cliente, extraído con transparencia de
+           assets/Logotipo PAS SVG.svg. Se acompaña del nombre en Archivo porque
+           el lockup original es vertical y su tipografía no es legible a 40px.
+           PENDIENTE: el archivo entregado es un PNG de 5334px incrustado en un
+           envoltorio SVG, no un vector real. Para producción conviene pedir el
+           trazo vectorial o servir WebP/AVIF optimizado. -->
+      <a href="#" class="flex items-center gap-2.5 cursor-pointer shrink-0" aria-label="Pozos de Agua Subterránea — inicio">
+        <img src="img/logo-isotipo.png" alt="" width="40" height="40"
+             class="w-10 h-10 shrink-0" aria-hidden="true">
+        <span class="display-md text-cafe text-[15px] leading-[1.1] hidden sm:block">
+          Pozos de Agua<br>Subterránea
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7" aria-label="Navegación principal">
+        <a href="#servicios"   class="text-[14px] font-medium text-ink hover:text-agua-600 transition-colors duration-200 cursor-pointer">Servicios</a>
+        <a href="#experiencia" class="text-[14px] font-medium text-ink hover:text-agua-600 transition-colors duration-200 cursor-pointer">Experiencia</a>
+        <a href="#proyectos"   class="text-[14px] font-medium text-ink hover:text-agua-600 transition-colors duration-200 cursor-pointer">Proyectos</a>
+        <a href="#contacto"    class="text-[14px] font-medium text-ink hover:text-agua-600 transition-colors duration-200 cursor-pointer">Contacto</a>
+      </nav>
+
+      <div class="flex items-center gap-3 sm:gap-4">
+        <!-- POR VALIDAR: confirmar teléfono de atención vigente antes de publicar. -->
+        <a href="tel:+523336328850" class="hidden md:flex items-center gap-2 font-mono text-[13px] text-cafe hover:text-agua-600 transition-colors duration-200 cursor-pointer">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          36 32 88 50
+        </a>
+        <a href="#contacto" class="bg-agua-500 hover:bg-agua-600 text-white text-[14px] font-semibold px-4 sm:px-5 py-2.5 rounded-lg transition-colors duration-200 cursor-pointer whitespace-nowrap">
+          Solicitar cotización
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="contenido">
+
+<!-- ═══════════ 02 — HERO ═══════════
+     La página abre a nivel de suelo: arriba el aire y el mensaje,
+     abajo el subsuelo. La torre atraviesa la línea de terreno. -->
+<section class="relative bg-white">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8">
+    <div class="grid lg:grid-cols-[1.25fr_0.75fr] gap-10 lg:gap-14 items-end pt-14 sm:pt-20 lg:pt-24">
+
+      <div class="pb-10 lg:pb-14">
+        <p class="eyebrow mb-5">Pozos de Agua Subterránea</p>
+
+        <h1 class="display text-cafe text-[32px] sm:text-[40px] lg:text-[44px] mb-6 max-w-[19ch]">
+          Perforación y soluciones para el aprovechamiento de agua subterránea.
+        </h1>
+
+        <p class="text-[16px] sm:text-[17px] leading-[1.6] text-ink max-w-[46ch] mb-8">
+          Especialistas en perforación y equipamiento de pozos profundos, estudios hidráulicos y geohidrológicos, y diseño y construcción de obras hidráulicas.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+          <a href="#contacto" class="bg-agua-500 hover:bg-agua-600 text-white text-[15px] font-semibold px-6 py-3.5 rounded-lg transition-colors duration-200 cursor-pointer">
+            Solicitar cotización
+          </a>
+          <a href="#servicios" class="border-[1.5px] border-cafe text-cafe hover:bg-cafe hover:text-white text-[15px] font-semibold px-6 py-3.5 rounded-lg transition-colors duration-200 cursor-pointer">
+            Conocer servicios
+          </a>
+        </div>
+      </div>
+
+      <!-- La torre se apoya sobre la línea de terreno y baja hacia el subsuelo -->
+      <div class="relative z-10 lg:-mb-16">
+        <!-- IMAGEN TEMPORAL generada por IA. Sustituir por fotografía real del
+             cliente antes de publicar (documento maestro, sección 7). -->
+        <img src="img/hero.jpg" width="720" height="900" fetchpriority="high"
+             alt="Torre de perforación de pozo profundo montada sobre camión en un terreno seco"
+             class="rounded-t-xl w-full aspect-[4/5] max-h-[420px] object-cover">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NIVEL DEL TERRENO -->
+  <div class="relative">
+    <div class="border-t border-cafe/60"></div>
+    <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8">
+      <p class="font-mono text-[10px] tracking-[.14em] uppercase text-cafe/85 pt-2">Nivel del terreno</p>
+    </div>
+  </div>
+
+  <!-- SUBSUELO -->
+  <div class="strata relative h-[178px] sm:h-[190px] lg:h-[230px] mt-2">
+    <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 h-full relative">
+      <!-- Texto en café sobre el estrato claro: contraste 6.3:1 -->
+      <div class="pt-4 max-w-[44ch]">
+        <p class="font-mono text-[11px] leading-[1.7] text-cafe">
+          Cada proyecto atraviesa una secuencia distinta de estratos.<br>
+          El estudio previo define dónde y hasta dónde perforar.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 03 — FRANJA DE CONFIANZA ═══════════
+     Prueba arriba. Solo cifras documentadas, cada una con su origen anotado. -->
+<section class="bg-marfil border-y border-linea">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-12 sm:py-14">
+
+    <p class="eyebrow mb-6">Experiencia documentada</p>
+
+    <!-- POR VALIDAR: confirmar autorización para mostrar nombres y logotipos de cada
+         cliente antes de publicar (copy §2). Mientras tanto se muestran como texto,
+         no como logotipos, y sin insinuar respaldo comercial. -->
+    <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-5 mb-10">
+      <li>
+        <p class="display-md text-cafe text-[15px]">Grupo Pepsico</p>
+        <p class="font-mono text-[10.5px] text-cafe/85 leading-snug mt-1">Embotelladora Santorini,<br>Ixtlahuacán, Jalisco</p>
+      </li>
+      <li>
+        <p class="display-md text-cafe text-[15px]">IBM</p>
+        <p class="font-mono text-[10.5px] text-cafe/85 leading-snug mt-1">Planta del Salto,<br>El Salto, Jalisco</p>
+      </li>
+      <li>
+        <p class="display-md text-cafe text-[15px]">Omnilife</p>
+        <p class="font-mono text-[10.5px] text-cafe/85 leading-snug mt-1">Bajío,<br>Zapopan, Jalisco</p>
+      </li>
+      <li>
+        <p class="display-md text-cafe text-[15px]">Empaques Modernos</p>
+        <p class="font-mono text-[10.5px] text-cafe/85 leading-snug mt-1">Planta del Salto,<br>El Salto, Jalisco</p>
+      </li>
+      <li>
+        <p class="display-md text-cafe text-[15px]">Gobierno del Estado de Nayarit</p>
+        <p class="font-mono text-[10.5px] text-cafe/85 leading-snug mt-1">Tepic, Nayarit</p>
+      </li>
+      <li>
+        <p class="display-md text-cafe text-[15px]">H. Ayuntamiento de Sahuayo</p>
+        <p class="font-mono text-[10.5px] text-cafe/85 leading-snug mt-1">Sahuayo, Michoacán</p>
+      </li>
+    </ul>
+
+    <!-- Micro-pruebas del copy §1, colocadas donde son físicamente ciertas.
+         POR VALIDAR contra capacidades actuales (copy §1). -->
+    <dl class="grid sm:grid-cols-3 gap-6 pt-8 border-t border-cafe/15">
+      <div>
+        <dt class="font-mono text-[11px] uppercase tracking-[.1em] text-cafe/85 mb-1.5">Trayectoria</dt>
+        <dd class="display-md text-cafe text-[26px]">desde 1973</dd>
+      </div>
+      <div>
+        <dt class="font-mono text-[11px] uppercase tracking-[.1em] text-cafe/85 mb-1.5">Profundidad de proyectos</dt>
+        <dd class="display-md text-cafe text-[26px]">180 <span class="text-[18px] font-normal">a</span> 425 m</dd>
+      </div>
+      <div>
+        <dt class="font-mono text-[11px] uppercase tracking-[.1em] text-cafe/85 mb-1.5">Sectores atendidos</dt>
+        <dd class="display-md text-cafe text-[26px]">público, industrial y privado</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<!-- ═══════════ 04 — SERVICIOS ═══════════ -->
+<section id="servicios" class="bg-white scroll-mt-24">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-16 sm:py-20">
+
+    <p class="eyebrow mb-4">Servicios</p>
+    <h2 class="display-md text-cafe text-[26px] sm:text-[30px] max-w-[22ch] mb-4">
+      Soluciones especializadas en agua subterránea
+    </h2>
+    <p class="text-[16px] leading-[1.6] text-ink max-w-[58ch] mb-12">
+      Contamos con experiencia técnica para desarrollar proyectos relacionados con la captación, extracción y aprovechamiento de agua subterránea.
+    </p>
+
+    <!-- Los cuatro servicios en su posición real respecto al pozo:
+         estudios en superficie · perforación atravesando estratos ·
+         equipamiento dentro del bore · obras hidráulicas en superficie. -->
+    <div class="grid sm:grid-cols-2 gap-x-8 gap-y-10">
+
+      <article>
+        <div class="flex items-start gap-4">
+          <svg width="34" height="34" viewBox="0 0 32 32" fill="none" class="shrink-0 mt-0.5" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" stroke="#B5552E" stroke-width="1.75"/>
+            <path d="M16 6v20" stroke="#5E3B22" stroke-width="1.75"/>
+            <circle cx="16" cy="23" r="4" fill="#2E7DA6"/>
+          </svg>
+          <div>
+            <h3 class="display-md text-cafe text-[18px] mb-2">Perforación de pozos profundos</h3>
+            <p class="text-[15px] leading-[1.6] text-ink">
+              Realizamos trabajos de perforación orientados a la captación de agua subterránea, de acuerdo con las condiciones y objetivos de cada proyecto.
+            </p>
+            <p class="font-mono text-[12px] text-agua-600 mt-3">Proyectos de 180 a 425 m</p>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="flex items-start gap-4">
+          <svg width="34" height="34" viewBox="0 0 32 32" fill="none" class="shrink-0 mt-0.5" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" stroke="#B5552E" stroke-width="1.75"/>
+            <rect x="12" y="8" width="8" height="16" stroke="#5E3B22" stroke-width="1.75"/>
+            <circle cx="16" cy="16" r="2.5" fill="#2E7DA6"/>
+          </svg>
+          <div>
+            <h3 class="display-md text-cafe text-[18px] mb-2">Equipamiento de pozos</h3>
+            <p class="text-[15px] leading-[1.6] text-ink">
+              Integramos el equipamiento necesario para la extracción y aprovechamiento del agua del pozo.
+            </p>
+            <p class="font-mono text-[12px] text-agua-600 mt-3">Gastos de 16 a 60 L/s</p>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="flex items-start gap-4">
+          <svg width="34" height="34" viewBox="0 0 32 32" fill="none" class="shrink-0 mt-0.5" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" stroke="#B5552E" stroke-width="1.75"/>
+            <path d="M6 13h20M6 19h20" stroke="#5E3B22" stroke-width="1.75"/>
+            <circle cx="16" cy="16" r="2.5" fill="#2E7DA6"/>
+          </svg>
+          <div>
+            <h3 class="display-md text-cafe text-[18px] mb-2">Estudios hidráulicos y geohidrológicos</h3>
+            <p class="text-[15px] leading-[1.6] text-ink">
+              Realizamos estudios técnicos que permiten analizar las condiciones del sitio y apoyar la planeación de proyectos de agua subterránea.
+            </p>
+            <p class="font-mono text-[12px] text-agua-600 mt-3">Antes de perforar</p>
+          </div>
+        </div>
+      </article>
+
+      <article>
+        <div class="flex items-start gap-4">
+          <svg width="34" height="34" viewBox="0 0 32 32" fill="none" class="shrink-0 mt-0.5" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" stroke="#B5552E" stroke-width="1.75"/>
+            <path d="M8 20h16M11 20v-5M21 20v-8" stroke="#5E3B22" stroke-width="1.75" stroke-linecap="round"/>
+            <circle cx="16" cy="12" r="2.5" fill="#2E7DA6"/>
+          </svg>
+          <div>
+            <h3 class="display-md text-cafe text-[18px] mb-2">Diseño y construcción de obras hidráulicas</h3>
+            <p class="text-[15px] leading-[1.6] text-ink">
+              Desarrollamos soluciones de infraestructura hidráulica relacionadas con las necesidades de cada proyecto.
+            </p>
+            <p class="font-mono text-[12px] text-agua-600 mt-3">En superficie</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Features & Objections — copy §3 -->
+    <div class="mt-14 pt-10 border-t border-linea">
+      <h3 class="display-md text-cafe text-[20px] mb-6">Lo que suele preguntarnos un cliente</h3>
+      <div class="space-y-0 border-t border-linea">
+        <div class="grid sm:grid-cols-[1fr_1.1fr] gap-1 sm:gap-8 py-4 border-b border-linea">
+          <p class="text-[15px] font-semibold text-cafe">Un pozo listo para operar, no solo perforado</p>
+          <p class="text-[14.5px] leading-[1.6] text-ink">“¿Tengo que contratar a alguien más para equiparlo?” — perforación y equipamiento con un solo responsable</p>
+        </div>
+        <div class="grid sm:grid-cols-[1fr_1.1fr] gap-1 sm:gap-8 py-4 border-b border-linea">
+          <p class="text-[15px] font-semibold text-cafe">Decisiones respaldadas por datos del sitio antes de perforar</p>
+          <p class="text-[14.5px] leading-[1.6] text-ink">“¿Y si perforo y sale seco?” — evaluamos el sitio antes de invertir en la perforación</p>
+        </div>
+        <div class="grid sm:grid-cols-[1fr_1.1fr] gap-1 sm:gap-8 py-4 border-b border-linea">
+          <p class="text-[15px] font-semibold text-cafe">Captación ajustada a las condiciones y objetivo de tu proyecto</p>
+          <p class="text-[14.5px] leading-[1.6] text-ink">“¿Podrán con la profundidad que necesito?” — trayectoria en proyectos de 180 a 425 m</p>
+        </div>
+        <div class="grid sm:grid-cols-[1fr_1.1fr] gap-1 sm:gap-8 py-4 border-b border-linea">
+          <p class="text-[15px] font-semibold text-cafe">Infraestructura resuelta de principio a fin</p>
+          <p class="text-[14.5px] leading-[1.6] text-ink">“¿Solo perforan o resuelven el proyecto completo?” — cubrimos del estudio a la obra</p>
+        </div>
+        <div class="grid sm:grid-cols-[1fr_1.1fr] gap-1 sm:gap-8 py-4 border-b border-linea">
+          <p class="text-[15px] font-semibold text-cafe">Un ingeniero con especialidad en obras hidráulicas al frente</p>
+          <p class="text-[14.5px] leading-[1.6] text-ink">“¿Quién responde por el proyecto?” — Gerente General con formación UNAM/UdeG</p>
+        </div>
+        <!-- POR VALIDAR: gestión de trámites CONAGUA (copy §3). No se publica esta fila
+             hasta confirmar con el cliente que el servicio se presta.
+        <div class="grid sm:grid-cols-[1fr_1.1fr] gap-1 sm:gap-8 py-4 border-b border-linea">
+          <p class="text-[15px] font-semibold text-cafe">Tranquilidad ante trámites y requisitos del pozo</p>
+          <p class="text-[14.5px] leading-[1.6] text-ink">“¿Me van a dejar solo con los permisos?” — gestión de trámites CONAGUA</p>
+        </div>
+        -->
+      </div>
+    </div>
+
+    <!-- CTA repetido tras Servicios -->
+    <div class="mt-12 flex flex-wrap items-center gap-4">
+      <a href="#contacto" class="bg-agua-500 hover:bg-agua-600 text-white text-[15px] font-semibold px-6 py-3.5 rounded-lg transition-colors duration-200 cursor-pointer">
+        Solicitar cotización
+      </a>
+      <p class="font-mono text-[12px] text-cafe/85">Te contactamos para orientarte sobre tu proyecto. Sin compromiso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 05 — EXPERIENCIA Y ESPECIALIZACIÓN ═══════════ -->
+<section id="experiencia" class="bg-marfil border-y border-linea scroll-mt-24">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-16 sm:py-20">
+    <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16">
+
+      <div>
+        <p class="eyebrow mb-4">Experiencia</p>
+        <h2 class="display-md text-cafe text-[26px] sm:text-[30px] max-w-[24ch] mb-6">
+          Experiencia técnica respaldada por una trayectoria especializada
+        </h2>
+        <div class="space-y-4 max-w-[60ch]">
+          <p class="text-[16px] leading-[1.6] text-ink">
+            Nuestra experiencia se ha desarrollado alrededor de la ingeniería hidráulica, la perforación de pozos y el aprovechamiento de agua subterránea.
+          </p>
+          <p class="text-[16px] leading-[1.6] text-ink">
+            El Ing. Marcial Pérez Palomera, Gerente General, es Ingeniero Civil por la Universidad de Guadalajara y cuenta con una Especialidad en Obras Hidráulicas por la Facultad de Ingeniería de la UNAM.
+          </p>
+          <p class="text-[16px] leading-[1.6] text-ink">
+            Su trayectoria profesional documentada incluye actividades en obra hidráulica, aguas superficiales, aguas subterráneas, administración de proyectos y dirección general.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <!-- IMAGEN TEMPORAL generada por IA. Sustituir por fotografía real del
+             equipo y del Gerente General antes de publicar. -->
+        <img src="img/experiencia.jpg" width="675" height="900" loading="lazy"
+             alt="Dos ingenieros de campo con casco revisando un plano sobre el cofre de una camioneta"
+             class="rounded-xl w-full aspect-[4/5] max-h-[380px] object-cover">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 06 — LÍNEA DE TIEMPO ═══════════ SIGNATURE
+     Corte estratigráfico de la trayectoria. Cada etapa es un estrato y su
+     ALTURA es proporcional a la duración, así que el peso visual de cada
+     periodo es un dato, no una decoración. Los marcadores son los AÑOS,
+     no índices 01/02/03: el año es el dato. El descenso avanza en el
+     tiempo y termina en el acuífero, donde el marcador se convierte en
+     el motivo del logotipo. -->
+<section class="bg-white">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-16 sm:py-20">
+
+    <p class="eyebrow mb-4">Trayectoria</p>
+    <h2 class="display-md text-cafe text-[26px] sm:text-[30px] max-w-[22ch] mb-3">
+      Cinco décadas alrededor del agua subterránea
+    </h2>
+    <p class="text-[16px] leading-[1.6] text-ink max-w-[56ch] mb-12">
+      Trayectoria profesional documentada del Ing. Marcial Pérez Palomera, Gerente General.
+    </p>
+
+    <!-- Seis hitos de los ocho documentados. El maestro (6.4) autoriza resumir:
+         "basta con utilizar los hitos que mejor demuestran experiencia técnica".
+         Se omiten Dibujante (1975–1978) y Jefe de Departamento (1985). -->
+    <ol id="tl" class="tl max-w-[78ch]">
+
+      <li class="tl-row grid grid-cols-[18px_1fr] sm:grid-cols-[118px_34px_1fr] lg:grid-cols-[118px_46px_1fr] gap-x-4 sm:gap-x-7" style="--h:96px">
+        <div class="tl-band col-start-1 row-start-1 row-span-2 sm:col-start-2 sm:row-span-1">
+          <div class="tl-fill" style="background:#E4D8C6"></div>
+          <span class="tl-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" fill="#fff" stroke="#B5552E" stroke-width="3.5"/><circle cx="16" cy="16" r="5.5" fill="#2E7DA6"/></svg>
+          </span>
+        </div>
+        <p class="tl-year col-start-2 row-start-1 sm:col-start-1 sm:text-right">1973–1974</p>
+        <div class="tl-text col-start-2 row-start-2 sm:col-start-3 sm:row-start-1">
+          <h3 class="tl-title">Obra hidráulica</h3>
+          <p class="tl-desc">Secretaría de Recursos Hidráulicos.</p>
+        </div>
+      </li>
+
+      <li class="tl-row grid grid-cols-[18px_1fr] sm:grid-cols-[118px_34px_1fr] lg:grid-cols-[118px_46px_1fr] gap-x-4 sm:gap-x-7" style="--h:158px">
+        <div class="tl-band col-start-1 row-start-1 row-span-2 sm:col-start-2 sm:row-span-1">
+          <div class="tl-fill" style="background:#D6C3A9"></div>
+          <span class="tl-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" fill="#fff" stroke="#B5552E" stroke-width="3.5"/><circle cx="16" cy="16" r="5.5" fill="#2E7DA6"/></svg>
+          </span>
+        </div>
+        <p class="tl-year col-start-2 row-start-1 sm:col-start-1 sm:text-right">1978–1984</p>
+        <div class="tl-text col-start-2 row-start-2 sm:col-start-3 sm:row-start-1">
+          <h3 class="tl-title">Aguas superficiales, federales y subterráneas</h3>
+          <p class="tl-desc">Ingeniero de gabinete y campo en el área de aguas superficiales, federales y aguas subterráneas.</p>
+        </div>
+      </li>
+
+      <li class="tl-row grid grid-cols-[18px_1fr] sm:grid-cols-[118px_34px_1fr] lg:grid-cols-[118px_46px_1fr] gap-x-4 sm:gap-x-7" style="--h:120px">
+        <div class="tl-band col-start-1 row-start-1 row-span-2 sm:col-start-2 sm:row-span-1">
+          <div class="tl-fill" style="background:#C9A985"></div>
+          <span class="tl-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" fill="#fff" stroke="#B5552E" stroke-width="3.5"/><circle cx="16" cy="16" r="5.5" fill="#2E7DA6"/></svg>
+          </span>
+        </div>
+        <p class="tl-year col-start-2 row-start-1 sm:col-start-1 sm:text-right">1986–1988</p>
+        <div class="tl-text col-start-2 row-start-2 sm:col-start-3 sm:row-start-1">
+          <h3 class="tl-title">Coordinación de Administración de Aguas Subterráneas</h3>
+          <p class="tl-desc">Coordinador de Administración de Aguas Subterráneas.</p>
+        </div>
+      </li>
+
+      <li class="tl-row grid grid-cols-[18px_1fr] sm:grid-cols-[118px_34px_1fr] lg:grid-cols-[118px_46px_1fr] gap-x-4 sm:gap-x-7" style="--h:158px">
+        <div class="tl-band col-start-1 row-start-1 row-span-2 sm:col-start-2 sm:row-span-1">
+          <div class="tl-fill" style="background:#B07A4E"></div>
+          <span class="tl-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" fill="#fff" stroke="#B5552E" stroke-width="3.5"/><circle cx="16" cy="16" r="5.5" fill="#2E7DA6"/></svg>
+          </span>
+        </div>
+        <p class="tl-year col-start-2 row-start-1 sm:col-start-1 sm:text-right">1989–1995</p>
+        <div class="tl-text col-start-2 row-start-2 sm:col-start-3 sm:row-start-1">
+          <h3 class="tl-title">Jefatura de Unidad de Aguas Subterráneas</h3>
+          <p class="tl-desc">Jefe de Unidad de Aguas Subterráneas.</p>
+        </div>
+      </li>
+
+      <li class="tl-row grid grid-cols-[18px_1fr] sm:grid-cols-[118px_34px_1fr] lg:grid-cols-[118px_46px_1fr] gap-x-4 sm:gap-x-7" style="--h:180px">
+        <div class="tl-band col-start-1 row-start-1 row-span-2 sm:col-start-2 sm:row-span-1">
+          <div class="tl-fill" style="background:#8A5A38"></div>
+          <span class="tl-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" fill="#fff" stroke="#B5552E" stroke-width="3.5"/><circle cx="16" cy="16" r="5.5" fill="#2E7DA6"/></svg>
+          </span>
+        </div>
+        <p class="tl-year col-start-2 row-start-1 sm:col-start-1 sm:text-right">1996–2004</p>
+        <div class="tl-text col-start-2 row-start-2 sm:col-start-3 sm:row-start-1">
+          <h3 class="tl-title">Dirección general</h3>
+          <p class="tl-desc">Gerente General — empresa dedicada a hidroconstrucción y consultoría, según el CV histórico.</p>
+        </div>
+      </li>
+
+      <!-- Último estrato: el acuífero. El marcador crece al motivo completo
+           del logotipo — agua encontrada, y el hito vigente de la empresa. -->
+      <li class="tl-row tl-row--agua grid grid-cols-[18px_1fr] sm:grid-cols-[118px_34px_1fr] lg:grid-cols-[118px_46px_1fr] gap-x-4 sm:gap-x-7" style="--h:210px">
+        <div class="tl-band col-start-1 row-start-1 row-span-2 sm:col-start-2 sm:row-span-1">
+          <div class="tl-fill" style="background:#2E7DA6"></div>
+          <span class="tl-mark tl-mark--agua" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" fill="#fff" stroke="#B5552E" stroke-width="3.5"/><circle cx="16" cy="16" r="7" fill="#2E7DA6"/></svg>
+          </span>
+        </div>
+        <p class="tl-year col-start-2 row-start-1 sm:col-start-1 sm:text-right">Desde octubre<br class="hidden sm:block"> de 2004</p>
+        <div class="tl-text col-start-2 row-start-2 sm:col-start-3 sm:row-start-1">
+          <h3 class="tl-title">Gerente General de Pozos de Agua Subterránea</h3>
+          <p class="tl-desc">Gerente General de la empresa, de acuerdo con el CV histórico proporcionado.</p>
+          <p class="tl-agua-nota">Acuífero alcanzado</p>
+        </div>
+      </li>
+    </ol>
+
+    <p class="font-mono text-[11.5px] text-cafe/85 mt-6 max-w-[70ch] leading-relaxed">
+      La altura de cada estrato es proporcional a la duración de la etapa.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════ 07 — DIFERENCIADORES ═══════════ -->
+<section class="bg-marfil border-y border-linea">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-16 sm:py-20">
+
+    <p class="eyebrow mb-4">Diferenciadores</p>
+    <h2 class="display-md text-cafe text-[26px] sm:text-[30px] max-w-[22ch] mb-10">
+      Conocimiento especializado para proyectos de agua
+    </h2>
+
+    <!-- POR VALIDAR: validar que cada diferenciador corresponda a las capacidades
+         actuales de la empresa (documento maestro, 6.5). -->
+    <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-5 mb-14">
+      <li class="flex items-start gap-3">
+        <svg width="17" height="17" viewBox="0 0 32 32" fill="none" class="shrink-0 mt-1" aria-hidden="true"><circle cx="16" cy="16" r="13" stroke="#B5552E" stroke-width="3"/><circle cx="16" cy="16" r="6" fill="#2E7DA6"/></svg>
+        <span class="text-[15.5px] leading-[1.55] text-ink">Especialización en agua subterránea.</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <svg width="17" height="17" viewBox="0 0 32 32" fill="none" class="shrink-0 mt-1" aria-hidden="true"><circle cx="16" cy="16" r="13" stroke="#B5552E" stroke-width="3"/><circle cx="16" cy="16" r="6" fill="#2E7DA6"/></svg>
+        <span class="text-[15.5px] leading-[1.55] text-ink">Experiencia en perforación y equipamiento de pozos profundos.</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <svg width="17" height="17" viewBox="0 0 32 32" fill="none" class="shrink-0 mt-1" aria-hidden="true"><circle cx="16" cy="16" r="13" stroke="#B5552E" stroke-width="3"/><circle cx="16" cy="16" r="6" fill="#2E7DA6"/></svg>
+        <span class="text-[15.5px] leading-[1.55] text-ink">Conocimiento en estudios hidráulicos y geohidrológicos.</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <svg width="17" height="17" viewBox="0 0 32 32" fill="none" class="shrink-0 mt-1" aria-hidden="true"><circle cx="16" cy="16" r="13" stroke="#B5552E" stroke-width="3"/><circle cx="16" cy="16" r="6" fill="#2E7DA6"/></svg>
+        <span class="text-[15.5px] leading-[1.55] text-ink">Formación especializada en obras hidráulicas.</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <svg width="17" height="17" viewBox="0 0 32 32" fill="none" class="shrink-0 mt-1" aria-hidden="true"><circle cx="16" cy="16" r="13" stroke="#B5552E" stroke-width="3"/><circle cx="16" cy="16" r="6" fill="#2E7DA6"/></svg>
+        <span class="text-[15.5px] leading-[1.55] text-ink">Experiencia en proyectos para sectores público, industrial y privado.</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <svg width="17" height="17" viewBox="0 0 32 32" fill="none" class="shrink-0 mt-1" aria-hidden="true"><circle cx="16" cy="16" r="13" stroke="#B5552E" stroke-width="3"/><circle cx="16" cy="16" r="6" fill="#2E7DA6"/></svg>
+        <span class="text-[15.5px] leading-[1.55] text-ink">Equipo y maquinaria de campo documentados.</span>
+      </li>
+    </ul>
+
+    <!-- Value prop — copy §5 -->
+    <div class="grid lg:grid-cols-2 gap-6">
+      <div class="bg-white border border-linea rounded-xl p-7 sm:p-8">
+        <h3 class="display-md text-cafe text-[21px] mb-3">Del estudio a la operación, sin pasos sueltos</h3>
+        <p class="text-[15.5px] leading-[1.65] text-ink mb-6">
+          Un pozo mal decidido cuesta caro. Por eso trabajamos con un enfoque completo: primero evaluamos las condiciones del sitio con estudios hidráulicos y geohidrológicos, luego perforamos y equipamos, y entregamos el sistema listo para operar. No solo perforamos: resolvemos el aprovechamiento del agua de principio a fin.
+        </p>
+        <a href="#contacto" class="inline-block bg-agua-500 hover:bg-agua-600 text-white text-[14.5px] font-semibold px-5 py-3 rounded-lg transition-colors duration-200 cursor-pointer">
+          Solicitar cotización
+        </a>
+      </div>
+      <div class="bg-white border border-linea rounded-xl p-7 sm:p-8">
+        <h3 class="display-md text-cafe text-[21px] mb-3">Especialización, no improvisación</h3>
+        <p class="text-[15.5px] leading-[1.65] text-ink mb-6">
+          No somos una constructora que también hace pozos. Nuestra experiencia se ha construido durante décadas alrededor de una sola cosa: el agua subterránea. Esa especialización — respaldada por proyectos para gobierno, industria y clientes privados — es lo que nos distingue de un proveedor general.
+        </p>
+        <a href="#experiencia" class="inline-flex items-center gap-1.5 text-agua-600 hover:text-agua-500 text-[14.5px] font-semibold transition-colors duration-200 cursor-pointer">
+          Conocer nuestra experiencia
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 08 — PROCESO DE TRABAJO ═══════════
+     Numeración justificada: es una secuencia real. Cada paso lleva además
+     su estrato, así que el número tiene referente espacial y no solo ordinal. -->
+<section class="bg-tierra-700">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-16 sm:py-20">
+
+    <p class="font-mono text-[12px] uppercase tracking-[.14em] text-marfilAlto mb-4">Proceso</p>
+    <h2 class="display-md text-marfil text-[26px] sm:text-[30px] max-w-[20ch] mb-3">
+      Del estudio a la puesta en operación
+    </h2>
+    <p class="text-[15.5px] leading-[1.6] text-marfilAlto max-w-[54ch] mb-12">
+      Cinco etapas, de la superficie al acuífero.
+    </p>
+    <!-- POR VALIDAR: el flujo es una propuesta de comunicación y debe validarse
+         técnicamente con el cliente (copy §4). -->
+
+    <ol class="space-y-3">
+      <li class="bg-white rounded-xl overflow-hidden flex flex-col sm:flex-row">
+        <div class="w-full sm:w-[8px] h-[6px] sm:h-auto shrink-0" style="background:#DCCDB9"></div>
+        <div class="flex-1 grid sm:grid-cols-[auto_1fr_auto] gap-x-6 gap-y-2 items-start p-6">
+          <p class="font-mono text-[15px] font-medium text-terracota">01</p>
+          <div>
+            <h3 class="display-md text-cafe text-[18px] mb-1.5">Conocemos tu proyecto</h3>
+            <p class="text-[15px] leading-[1.6] text-ink max-w-[52ch]">Analizamos ubicación, objetivo, uso previsto del agua y necesidades generales.</p>
+          </div>
+          <!-- Imagen sugerida (nota interna de dirección de arte, no se publica): Reunión / plano de sitio -->
+        </div>
+      </li>
+      <li class="bg-white rounded-xl overflow-hidden flex flex-col sm:flex-row">
+        <div class="w-full sm:w-[8px] h-[6px] sm:h-auto shrink-0" style="background:#C9A985"></div>
+        <div class="flex-1 grid sm:grid-cols-[auto_1fr_auto] gap-x-6 gap-y-2 items-start p-6">
+          <p class="font-mono text-[15px] font-medium text-terracota">02</p>
+          <div>
+            <h3 class="display-md text-cafe text-[18px] mb-1.5">Evaluamos las condiciones</h3>
+            <p class="text-[15px] leading-[1.6] text-ink max-w-[52ch]">Determinamos los estudios y trabajos técnicos necesarios.</p>
+          </div>
+          <!-- Imagen sugerida (nota interna de dirección de arte, no se publica): Estudio geohidrológico -->
+        </div>
+      </li>
+      <li class="bg-white rounded-xl overflow-hidden flex flex-col sm:flex-row">
+        <div class="w-full sm:w-[8px] h-[6px] sm:h-auto shrink-0" style="background:#B07A4E"></div>
+        <div class="flex-1 grid sm:grid-cols-[auto_1fr_auto] gap-x-6 gap-y-2 items-start p-6">
+          <p class="font-mono text-[15px] font-medium text-terracota">03</p>
+          <div>
+            <h3 class="display-md text-cafe text-[18px] mb-1.5">Perforamos</h3>
+            <p class="text-[15px] leading-[1.6] text-ink max-w-[52ch]">Ejecutamos la perforación conforme al proyecto y a las condiciones encontradas.</p>
+          </div>
+          <!-- Imagen sugerida (nota interna de dirección de arte, no se publica): Torre de perforación en campo -->
+        </div>
+      </li>
+      <li class="bg-white rounded-xl overflow-hidden flex flex-col sm:flex-row">
+        <div class="w-full sm:w-[8px] h-[6px] sm:h-auto shrink-0" style="background:#8A5A38"></div>
+        <div class="flex-1 grid sm:grid-cols-[auto_1fr_auto] gap-x-6 gap-y-2 items-start p-6">
+          <p class="font-mono text-[15px] font-medium text-terracota">04</p>
+          <div>
+            <h3 class="display-md text-cafe text-[18px] mb-1.5">Equipamos</h3>
+            <p class="text-[15px] leading-[1.6] text-ink max-w-[52ch]">Integramos el equipamiento para la extracción y aprovechamiento del agua.</p>
+          </div>
+          <!-- Imagen sugerida (nota interna de dirección de arte, no se publica): Instalación de bombeo -->
+        </div>
+      </li>
+      <li class="bg-white rounded-xl overflow-hidden flex flex-col sm:flex-row">
+        <!-- Última banda en agua: el acuífero alcanzado -->
+        <div class="w-full sm:w-[8px] h-[6px] sm:h-auto shrink-0" style="background:#2E7DA6"></div>
+        <div class="flex-1 grid sm:grid-cols-[auto_1fr_auto] gap-x-6 gap-y-2 items-start p-6">
+          <p class="font-mono text-[15px] font-medium text-terracota">05</p>
+          <div>
+            <h3 class="display-md text-cafe text-[18px] mb-1.5">Ponemos en operación</h3>
+            <p class="text-[15px] leading-[1.6] text-ink max-w-[52ch] mb-4">Dejamos el sistema preparado para su aprovechamiento.</p>
+            <a href="#contacto" class="inline-block bg-agua-500 hover:bg-agua-600 text-white text-[14px] font-semibold px-5 py-2.5 rounded-lg transition-colors duration-200 cursor-pointer">
+              Solicitar cotización
+            </a>
+          </div>
+          <!-- Imagen sugerida (nota interna de dirección de arte, no se publica): Pozo en operación -->
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══════════ 09 — PROYECTOS / CASOS ═══════════ -->
+<section id="proyectos" class="bg-white scroll-mt-24">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-16 sm:py-20">
+
+    <p class="eyebrow mb-4">Proyectos</p>
+    <h2 class="display-md text-cafe text-[26px] sm:text-[30px] max-w-[22ch] mb-4">
+      Trabajos documentados para gobierno, industria y clientes privados
+    </h2>
+    <p class="text-[16px] leading-[1.6] text-ink max-w-[62ch] mb-10">
+      La documentación histórica de la empresa registra trabajos para organismos gubernamentales, empresas industriales, desarrolladores y clientes privados en diferentes ubicaciones.
+    </p>
+
+    <!-- POR VALIDAR: confirmar autorización para mostrar nombres y/o logotipos de
+         clientes (documento maestro, 6.7). -->
+    <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+      <li class="border border-linea rounded-xl p-5 hover:shadow-md transition-shadow duration-200">
+        <p class="display-md text-cafe text-[17px] mb-1">Grupo Pepsico, S.A. de C.V.</p>
+        <p class="font-mono text-[12px] text-agua-600 leading-snug">Embotelladora Santorini,<br>Ixtlahuacán, Jalisco</p>
+      </li>
+      <li class="border border-linea rounded-xl p-5 hover:shadow-md transition-shadow duration-200">
+        <p class="display-md text-cafe text-[17px] mb-1">IBM</p>
+        <p class="font-mono text-[12px] text-agua-600 leading-snug">Planta del Salto,<br>El Salto, Jalisco</p>
+      </li>
+      <li class="border border-linea rounded-xl p-5 hover:shadow-md transition-shadow duration-200">
+        <p class="display-md text-cafe text-[17px] mb-1">Omnilife</p>
+        <p class="font-mono text-[12px] text-agua-600 leading-snug">Bajío,<br>Zapopan, Jalisco</p>
+      </li>
+      <li class="border border-linea rounded-xl p-5 hover:shadow-md transition-shadow duration-200">
+        <p class="display-md text-cafe text-[17px] mb-1">Gobierno Estatal de Nayarit</p>
+        <p class="font-mono text-[12px] text-agua-600 leading-snug">Tepic, Nayarit</p>
+      </li>
+      <li class="border border-linea rounded-xl p-5 hover:shadow-md transition-shadow duration-200">
+        <p class="display-md text-cafe text-[17px] mb-1">H. Ayuntamiento de Sahuayo</p>
+        <p class="font-mono text-[12px] text-agua-600 leading-snug">Sahuayo, Michoacán</p>
+      </li>
+      <li class="border border-linea rounded-xl p-5 hover:shadow-md transition-shadow duration-200">
+        <p class="display-md text-cafe text-[17px] mb-1">Empaques Modernos</p>
+        <p class="font-mono text-[12px] text-agua-600 leading-snug">Planta del Salto,<br>El Salto, Jalisco</p>
+      </li>
+      <li class="border border-linea rounded-xl p-5 hover:shadow-md transition-shadow duration-200">
+        <p class="display-md text-cafe text-[17px] mb-1">GIG</p>
+        <p class="font-mono text-[12px] text-agua-600 leading-snug">Fraccionamiento Casa Fuerte,<br>Tlajomulco de Zúñiga, Jalisco</p>
+      </li>
+    </ul>
+
+    <details class="group border-t border-linea pt-5">
+      <summary class="font-mono text-[13px] text-agua-600 hover:text-agua-500 cursor-pointer list-none inline-flex items-center gap-2 transition-colors duration-200">
+        <span>Ver más proyectos documentados</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-200 group-open:rotate-180" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-3">
+        <li class="text-[15px] leading-[1.5] text-ink">Arq. Carlos Palacios Dávalos <span class="font-mono text-[12px] text-cafe/85">— Tolimán, Jalisco</span></li>
+        <li class="text-[15px] leading-[1.5] text-ink">México Inversiones, S.A. de C.V. <span class="font-mono text-[12px] text-cafe/85">— Country Club ‘El Palomar’, Zapopan, Jalisco</span></li>
+        <li class="text-[15px] leading-[1.5] text-ink">Casas Javier, S.A. de C.V. <span class="font-mono text-[12px] text-cafe/85">— Tesistán, Zapopan, Jalisco</span></li>
+        <li class="text-[15px] leading-[1.5] text-ink">Consorcio Terrenos, S.A. de C.V. <span class="font-mono text-[12px] text-cafe/85">— diferentes ubicaciones de Jalisco</span></li>
+      </ul>
+    </details>
+
+    <!-- Dato técnico agregado. NO se asocia a un cliente concreto porque la
+         documentación no permite esa atribución todavía.
+         POR VALIDAR: verificar cada dato antes de publicarlo y asociarlo a un
+         proyecto específico, no como promesa de capacidad actual (copy §6). -->
+    <div class="mt-10 bg-marfil border border-linea rounded-xl p-6 sm:p-7">
+      <p class="text-[15.5px] leading-[1.65] text-ink max-w-[68ch]">
+        La documentación proporcionada registra proyectos con profundidades aproximadas de
+        <span class="font-mono text-[15px] font-medium text-agua-600">180 a 425 metros</span>
+        y gastos aproximados de
+        <span class="font-mono text-[15px] font-medium text-agua-600">16 a 60 litros por segundo</span>.
+      </p>
+    </div>
+
+    <!-- CTA repetido tras Proyectos -->
+    <div class="mt-10">
+      <a href="#contacto" class="inline-block bg-agua-500 hover:bg-agua-600 text-white text-[15px] font-semibold px-6 py-3.5 rounded-lg transition-colors duration-200 cursor-pointer">
+        Solicitar cotización
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 10 — GALERÍA ═══════════ -->
+<section class="bg-marfil border-y border-linea">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-16 sm:py-20">
+
+    <p class="eyebrow mb-4">Galería</p>
+    <h2 class="display-md text-cafe text-[26px] sm:text-[30px] mb-4">Nuestro trabajo en campo</h2>
+    <p class="text-[16px] leading-[1.6] text-ink max-w-[58ch] mb-10">
+      Torres de perforación, maquinaria, equipo de campo y trabajos realizados.
+    </p>
+
+    <!-- POR VALIDAR: la galería debe usar prioritariamente las fotografías
+         proporcionadas por el cliente, aún pendientes de entrega (documento
+         maestro, 6.9 y sección 7). Captions técnicos por confirmar ubicación
+         y tipo de trabajo de cada toma. -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <figure class="sm:col-span-2 lg:row-span-2 lg:col-span-2">
+        <img src="img/galeria-1-torre.jpg" width="1400" height="1050" loading="lazy"
+             alt="Equipo de perforación en operación con lodo y polvo alrededor del brocal"
+             class="rounded-xl w-full aspect-[16/10] lg:aspect-[4/3] object-cover">
+        <figcaption class="ph-cap mt-2">Torre de perforación en operación</figcaption>
+      </figure>
+      <figure>
+        <img src="img/galeria-2-maquinaria.jpg" width="900" height="675" loading="lazy"
+             alt="Torre de perforación montada sobre remolque en un llano seco"
+             class="rounded-xl w-full aspect-[4/3] object-cover">
+        <figcaption class="ph-cap mt-2">Maquinaria de campo</figcaption>
+      </figure>
+      <figure>
+        <img src="img/galeria-3-ademe.jpg" width="900" height="675" loading="lazy"
+             alt="Tubería de ademe de acero apilada junto a un montón de grava"
+             class="rounded-xl w-full aspect-[4/3] object-cover">
+        <figcaption class="ph-cap mt-2">Ademe y grava</figcaption>
+      </figure>
+      <figure>
+        <img src="img/galeria-4-bombeo.jpg" width="900" height="675" loading="lazy"
+             alt="Bomba sumergible y columna de descarga introduciéndose en el pozo"
+             class="rounded-xl w-full aspect-[4/3] object-cover">
+        <figcaption class="ph-cap mt-2">Equipo de bombeo</figcaption>
+      </figure>
+      <figure>
+        <img src="img/galeria-5-aforo.jpg" width="900" height="675" loading="lazy"
+             alt="Chorro de agua saliendo de la tubería de descarga durante el aforo"
+             class="rounded-xl w-full aspect-[4/3] object-cover">
+        <figcaption class="ph-cap mt-2">Aforo del pozo</figcaption>
+      </figure>
+      <figure>
+        <img src="img/galeria-6-pozo.jpg" width="900" height="675" loading="lazy"
+             alt="Brocal de pozo terminado con válvula y manómetro sobre losa de concreto"
+             class="rounded-xl w-full aspect-[4/3] object-cover">
+        <figcaption class="ph-cap mt-2">Pozo terminado</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 11 — TESTIMONIOS ═══════════
+     Sección estructuralmente lista pero NO publicada: no existen testimonios
+     reales en la documentación.
+     POR SOLICITAR AL CLIENTE: testimonios reales con nombre y empresa
+     (idealmente en video). Es el diferenciador de confianza más fuerte del
+     sector y hoy no está en la documentación (copy §6).
+     Al recibirlos, descomentar y sustituir el contenido.
+
+<section class="bg-white">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-16 sm:py-20">
+    <p class="eyebrow mb-4">Testimonios</p>
+    <h2 class="display-md text-cafe text-[26px] sm:text-[30px] mb-10">Lo que dicen nuestros clientes</h2>
+    <blockquote class="border-l-2 border-terracota pl-6 max-w-[60ch]">
+      <p class="text-[17px] leading-[1.65] text-ink mb-4">[Testimonio pendiente]</p>
+      <footer class="font-mono text-[12px] text-agua-600">[Nombre] — [Empresa]</footer>
+    </blockquote>
+  </div>
+</section>
+-->
+
+<!-- ═══════════ 12 — FAQ ═══════════ -->
+<section class="bg-white">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-16 sm:py-20">
+
+    <p class="eyebrow mb-4">Preguntas frecuentes</p>
+    <h2 class="display-md text-cafe text-[26px] sm:text-[30px] mb-10">Antes de cotizar</h2>
+
+    <div class="max-w-[76ch] border-t border-linea">
+
+      <details class="group border-b border-linea">
+        <summary class="flex items-start justify-between gap-6 py-5 cursor-pointer list-none">
+          <span class="text-[16.5px] font-semibold text-cafe">¿Qué servicios ofrece Pozos de Agua Subterránea?</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B5552E" stroke-width="2" stroke-linecap="round" class="shrink-0 mt-1 transition-transform duration-200 group-open:rotate-45" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <p class="text-[15.5px] leading-[1.65] text-ink pb-5 pr-10">Perforación y equipamiento de pozos profundos, estudios hidráulicos y geohidrológicos, y diseño y construcción de obras hidráulicas.</p>
+      </details>
+
+      <details class="group border-b border-linea">
+        <summary class="flex items-start justify-between gap-6 py-5 cursor-pointer list-none">
+          <span class="text-[16.5px] font-semibold text-cafe">¿Realizan perforación de pozos profundos?</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B5552E" stroke-width="2" stroke-linecap="round" class="shrink-0 mt-1 transition-transform duration-200 group-open:rotate-45" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <p class="text-[15.5px] leading-[1.65] text-ink pb-5 pr-10">Sí. Es uno de los servicios principales de la empresa.</p>
+      </details>
+
+      <details class="group border-b border-linea">
+        <summary class="flex items-start justify-between gap-6 py-5 cursor-pointer list-none">
+          <span class="text-[16.5px] font-semibold text-cafe">¿También equipan los pozos?</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B5552E" stroke-width="2" stroke-linecap="round" class="shrink-0 mt-1 transition-transform duration-200 group-open:rotate-45" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <p class="text-[15.5px] leading-[1.65] text-ink pb-5 pr-10">Sí. El equipamiento forma parte de los servicios; entregamos el pozo listo para operar.</p>
+      </details>
+
+      <details class="group border-b border-linea">
+        <summary class="flex items-start justify-between gap-6 py-5 cursor-pointer list-none">
+          <span class="text-[16.5px] font-semibold text-cafe">¿Qué tipo de proyectos atienden?</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B5552E" stroke-width="2" stroke-linecap="round" class="shrink-0 mt-1 transition-transform duration-200 group-open:rotate-45" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <p class="text-[15.5px] leading-[1.65] text-ink pb-5 pr-10">Experiencia documentada en proyectos públicos, industriales, desarrollos y clientes privados.</p>
+      </details>
+
+      <details class="group border-b border-linea">
+        <summary class="flex items-start justify-between gap-6 py-5 cursor-pointer list-none">
+          <span class="text-[16.5px] font-semibold text-cafe">¿En qué estados trabajan?</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B5552E" stroke-width="2" stroke-linecap="round" class="shrink-0 mt-1 transition-transform duration-200 group-open:rotate-45" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <!-- POR VALIDAR: cobertura actual (copy §8). -->
+        <p class="text-[15.5px] leading-[1.65] text-ink pb-5 pr-10">La documentación registra proyectos en Jalisco, Nayarit y Michoacán.</p>
+      </details>
+
+      <!-- POR VALIDAR: ¿Gestionan permisos y trámites CONAGUA? — la respuesta del copy §8
+           es "POR VALIDAR con el cliente antes de afirmarlo". La pregunta NO se publica
+           hasta tener respuesta confirmada.
+      <details class="group border-b border-linea">
+        <summary class="flex items-start justify-between gap-6 py-5 cursor-pointer list-none">
+          <span class="text-[16.5px] font-semibold text-cafe">¿Gestionan permisos y trámites CONAGUA?</span>
+        </summary>
+        <p class="text-[15.5px] leading-[1.65] text-ink pb-5 pr-10">[Respuesta pendiente de confirmación]</p>
+      </details>
+      -->
+
+      <details class="group border-b border-linea">
+        <summary class="flex items-start justify-between gap-6 py-5 cursor-pointer list-none">
+          <span class="text-[16.5px] font-semibold text-cafe">¿Cómo puedo solicitar una cotización?</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B5552E" stroke-width="2" stroke-linecap="round" class="shrink-0 mt-1 transition-transform duration-200 group-open:rotate-45" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </summary>
+        <p class="text-[15.5px] leading-[1.65] text-ink pb-5 pr-10">Por teléfono, WhatsApp o formulario. Comparte ubicación y características generales del proyecto y te contactamos.</p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 13 — CTA FINAL + CONTACTO ═══════════ -->
+<section id="contacto" class="bg-marfil border-t border-linea scroll-mt-24">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-16 sm:py-20">
+    <div class="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16">
+
+      <div>
+        <p class="eyebrow mb-4">Contacto</p>
+        <h2 class="display-md text-cafe text-[28px] sm:text-[32px] max-w-[18ch] mb-5">
+          Hablemos de tu proyecto
+        </h2>
+        <p class="text-[16px] leading-[1.65] text-ink max-w-[52ch] mb-8">
+          ¿Necesitas perforar un pozo, evaluar una fuente de agua subterránea o desarrollar una obra hidráulica? Compártenos los datos de tu proyecto y nos pondremos en contacto contigo.
+        </p>
+
+        <!-- Oferta de entrada — copy §7 -->
+        <div class="bg-white border border-linea rounded-xl p-6 mb-8">
+          <div class="flex items-baseline justify-between gap-4 mb-2">
+            <h3 class="display-md text-cafe text-[18px]">Diagnóstico inicial de tu proyecto</h3>
+            <p class="font-mono text-[12px] font-medium text-agua-600 whitespace-nowrap">Sin costo inicial</p>
+          </div>
+          <p class="text-[15px] leading-[1.6] text-ink">
+            Nos cuentas ubicación y objetivo; te orientamos sobre estudios y viabilidad antes de comprometer nada.
+          </p>
+        </div>
+
+        <!-- POR VALIDAR: confirmar todos los datos de contacto actuales — domicilio
+             completo, teléfonos, correo, WhatsApp y horario (documento maestro 6.11).
+             Se recomienda un correo corporativo, no @hotmail (copy §10). -->
+        <dl class="space-y-4 text-[15px]">
+          <div class="flex gap-3">
+            <dt class="sr-only">Teléfonos</dt>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B5552E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <dd class="font-mono text-[14px] text-ink">
+              <a href="tel:+523336328850" class="hover:text-agua-600 transition-colors duration-200 cursor-pointer">36 32 88 50</a> /
+              <a href="tel:+523336328756" class="hover:text-agua-600 transition-colors duration-200 cursor-pointer">36 32 87 56</a>
+            </dd>
+          </div>
+          <div class="flex gap-3">
+            <dt class="sr-only">Correo</dt>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B5552E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+            <dd class="font-mono text-[14px] text-ink">
+              <a href="mailto:pozosub@hotmail.com" class="hover:text-agua-600 transition-colors duration-200 cursor-pointer">pozosub@hotmail.com</a>
+            </dd>
+          </div>
+          <div class="flex gap-3">
+            <dt class="sr-only">Ubicación</dt>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#B5552E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <dd class="font-mono text-[14px] text-ink">Zapopan, Jalisco, C.P. 45080</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Formulario de 4 campos — copy §9 -->
+      <div class="bg-white border border-linea rounded-xl p-6 sm:p-8">
+        <!-- PENDIENTE DE PRODUCCIÓN: definir endpoint de envío (action/method) y
+             destinatario del lead antes de publicar. -->
+        <form novalidate>
+          <div class="space-y-5">
+            <div>
+              <label for="f-nombre" class="block text-[14px] font-semibold text-cafe mb-1.5">Nombre</label>
+              <input id="f-nombre" name="nombre" type="text" autocomplete="name" required
+                     class="w-full px-4 py-3 text-[16px] text-ink bg-white border border-linea rounded-lg focus:border-agua-500 transition-colors duration-200">
+            </div>
+            <div>
+              <label for="f-tel" class="block text-[14px] font-semibold text-cafe mb-1.5">Teléfono / WhatsApp</label>
+              <input id="f-tel" name="telefono" type="tel" autocomplete="tel" required
+                     class="w-full px-4 py-3 text-[16px] text-ink bg-white border border-linea rounded-lg focus:border-agua-500 transition-colors duration-200">
+            </div>
+            <div>
+              <label for="f-ubicacion" class="block text-[14px] font-semibold text-cafe mb-1.5">Ubicación del proyecto</label>
+              <!-- Texto de ayuda persistente en lugar de placeholder: el placeholder
+                   desaparecía al escribir y no alcanzaba 4.5:1 (daba 2.10). -->
+              <p id="f-ubicacion-ayuda" class="text-[13px] text-cafe/85 mb-1.5">Municipio y estado</p>
+              <input id="f-ubicacion" name="ubicacion" type="text" required
+                     aria-describedby="f-ubicacion-ayuda"
+                     class="w-full px-4 py-3 text-[16px] text-ink bg-white border border-linea rounded-lg focus:border-agua-500 transition-colors duration-200">
+            </div>
+            <div>
+              <label for="f-tipo" class="block text-[14px] font-semibold text-cafe mb-1.5">Tipo de proyecto</label>
+              <select id="f-tipo" name="tipo" required
+                      class="w-full px-4 py-3 text-[16px] text-ink bg-white border border-linea rounded-lg focus:border-agua-500 transition-colors duration-200 cursor-pointer">
+                <option value="">Selecciona una opción</option>
+                <option>Perforación de pozo profundo</option>
+                <option>Equipamiento de pozo</option>
+                <option>Estudio hidráulico o geohidrológico</option>
+                <option>Obra hidráulica</option>
+                <option>Otro</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full mt-6 bg-agua-500 hover:bg-agua-600 text-white text-[15px] font-semibold px-6 py-3.5 rounded-lg transition-colors duration-200 cursor-pointer">
+            Solicitar cotización
+          </button>
+
+          <!-- POR VALIDAR: tiempo de respuesta (copy §9). No se promete un plazo
+               hasta confirmarlo con el cliente. -->
+          <p class="font-mono text-[12px] leading-relaxed text-cafe/85 mt-4">
+            Te contactamos para orientarte sobre tu proyecto. Sin compromiso.
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════ 14 — FOOTER ═══════════ -->
+<footer class="bg-cafe text-marfil">
+  <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8 py-14">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <img src="img/logo-isotipo.png" alt="" width="44" height="44"
+               class="w-11 h-11 shrink-0" aria-hidden="true">
+          <span class="display-md text-marfil text-[14px] leading-[1.1]">Pozos de Agua<br>Subterránea</span>
+        </div>
+        <p class="text-[13.5px] leading-[1.6] text-marfilAlto/85">
+          Pozos de Agua Subterránea, S.A. de C.V.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-mono text-[11px] uppercase tracking-[.12em] text-marfil/70 mb-4">Contacto</h2>
+        <ul class="space-y-2 text-[13.5px] text-marfilAlto">
+          <li><a href="tel:+523336328850" class="font-mono hover:text-white transition-colors duration-200 cursor-pointer">36 32 88 50</a></li>
+          <li><a href="tel:+523336328756" class="font-mono hover:text-white transition-colors duration-200 cursor-pointer">36 32 87 56</a></li>
+          <li><a href="mailto:pozosub@hotmail.com" class="font-mono hover:text-white transition-colors duration-200 cursor-pointer break-all">pozosub@hotmail.com</a></li>
+          <li class="font-mono">Zapopan, Jalisco, C.P. 45080</li>
+        </ul>
+        <!-- POR VALIDAR: WhatsApp y horario de atención (copy §10). No se publican
+             hasta confirmarlos. -->
+      </div>
+
+      <div>
+        <h2 class="font-mono text-[11px] uppercase tracking-[.12em] text-marfil/70 mb-4">Navegación</h2>
+        <ul class="space-y-2 text-[13.5px] text-marfilAlto">
+          <li><a href="#servicios" class="hover:text-white transition-colors duration-200 cursor-pointer">Servicios</a></li>
+          <li><a href="#experiencia" class="hover:text-white transition-colors duration-200 cursor-pointer">Experiencia</a></li>
+          <li><a href="#proyectos" class="hover:text-white transition-colors duration-200 cursor-pointer">Proyectos</a></li>
+          <li><a href="#contacto" class="hover:text-white transition-colors duration-200 cursor-pointer">Contacto</a></li>
+        </ul>
+        <!-- POR VALIDAR: LinkedIn / Facebook si aplica (copy §10). -->
+      </div>
+
+      <div>
+        <h2 class="font-mono text-[11px] uppercase tracking-[.12em] text-marfil/70 mb-4">Legal</h2>
+        <ul class="space-y-2 text-[13.5px] text-marfilAlto mb-6">
+          <!-- PENDIENTE DE PRODUCCIÓN: redactar y enlazar el aviso de privacidad. -->
+          <li><a href="#" class="hover:text-white transition-colors duration-200 cursor-pointer">Aviso de privacidad</a></li>
+        </ul>
+        <a href="#contacto" class="inline-block bg-agua-500 hover:bg-agua-400 text-white text-[14px] font-semibold px-5 py-3 rounded-lg transition-colors duration-200 cursor-pointer">
+          Solicitar cotización
+        </a>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t border-marfil/20">
+      <p class="font-mono text-[11.5px] text-marfilAlto/70">
+        © <span id="year">2026</span> Pozos de Agua Subterránea, S.A. de C.V.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ WHATSAPP FLOTANTE ═══════════
+     Mensaje pre-cargado por contexto: se ajusta según la sección visible.
+     POR VALIDAR: número de WhatsApp de la empresa (copy §10). El número
+     usado aquí es el teléfono documentado; confirmar antes de publicar. -->
+<a id="wa" href="https://wa.me/523336328850?text=Hola%2C%20necesito%20informaci%C3%B3n%20sobre%20un%20pozo."
+   target="_blank" rel="noopener"
+   class="fixed bottom-5 right-5 z-40 flex items-center gap-2.5 bg-wa hover:bg-[#1FBF5C] text-[#08302A] font-semibold text-[14.5px] pl-4 pr-5 py-3.5 rounded-full shadow-lg transition-colors duration-200 cursor-pointer">
+  <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.896 9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.359.101 11.945c0 2.096.548 4.142 1.588 5.945L0 24l6.305-1.654a11.9 11.9 0 0 0 5.683 1.448h.005c6.585 0 11.946-5.359 11.949-11.945a11.9 11.9 0 0 0-3.421-8.4"/>
+  </svg>
+  <span class="hidden sm:inline">WhatsApp</span>
+</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* Corte estratigráfico: revelado por scroll, estrato por estrato.
+     Si el usuario pidió reducir movimiento, se marca todo como visible
+     de inmediato y no se anima nada. */
+  (function(){
+    var filas = document.querySelectorAll('#tl .tl-row');
+    if(!filas.length) return;
+    function revelarTodo(){ filas.forEach(function(f){ f.classList.add('is-in'); }); }
+    try{
+      var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(quieto || !('IntersectionObserver' in window)){ revelarTodo(); return; }
+      var obs = new IntersectionObserver(function(entradas){
+        entradas.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('is-in'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
+      filas.forEach(function(f){ obs.observe(f); });
+    }catch(err){
+      /* Ante cualquier fallo, el corte se muestra completo: nunca invisible. */
+      revelarTodo();
+    }
+  })();
+
+  /* WhatsApp: mensaje pre-cargado según la sección visible */
+  (function(){
+    var wa = document.getElementById('wa');
+    if(!wa || !('IntersectionObserver' in window)) return;
+    var base = 'https://wa.me/523336328850?text=';
+    var mensajes = {
+      servicios:  'Hola, necesito información sobre un pozo en [ubicación].',
+      experiencia:'Hola, quiero conocer su experiencia para un proyecto en [ubicación].',
+      proyectos:  'Hola, quiero saber si han perforado en [ubicación].',
+      contacto:   'Hola, quiero solicitar una cotización para un pozo en [ubicación].'
+    };
+    var obs = new IntersectionObserver(function(entradas){
+      entradas.forEach(function(e){
+        if(e.isIntersecting && mensajes[e.target.id]){
+          wa.href = base + encodeURIComponent(mensajes[e.target.id]);
+        }
+      });
+    }, { rootMargin: '-40% 0px -40% 0px' });
+    ['servicios','experiencia','proyectos','contacto'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) obs.observe(el);
+    });
+  })();
+</script>
+
+
+</body>
+</html>
