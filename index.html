@@ -1015,18 +1015,35 @@ tailwind.config = {
 
       <!-- Formulario de 4 campos — copy §9 -->
       <div class="bg-white border border-linea rounded-xl p-6 sm:p-8">
-        <!-- PENDIENTE DE PRODUCCIÓN: definir endpoint de envío (action/method) y
-             destinatario del lead antes de publicar. -->
-        <form novalidate>
+        <!-- Backend: FormSubmit. Los envíos llegan a pozosub@hotmail.com.
+             ACTIVACIÓN: el primer envío dispara un correo de confirmación a ese
+             buzón; hasta que alguien pulse su enlace, FormSubmit no reenvía nada.
+             Los atributos name llevan acentos a propósito: FormSubmit los usa
+             como etiquetas del correo, así llega legible en vez de "telefono".
+             POR VALIDAR: sustituir por el correo corporativo cuando exista. -->
+        <form action="https://formsubmit.co/pozosub@hotmail.com" method="POST">
+
+          <!-- Configuración de FormSubmit -->
+          <input type="hidden" name="_subject" value="Nueva solicitud de cotización desde la web">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://evm-one.github.io/pozos-agua-subterranea/gracias.html">
+          <!-- Sin captcha para no meter una pantalla intermedia entre el lead y el
+               envío; el señuelo de abajo filtra los bots más comunes. Si aparece
+               spam real, quitar esta línea y volver a activar el captcha. -->
+          <input type="hidden" name="_captcha" value="false">
+          <!-- Señuelo antispam: invisible para personas, los bots lo rellenan -->
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off"
+                 aria-hidden="true" class="hidden">
+
           <div class="space-y-5">
             <div>
               <label for="f-nombre" class="block text-[14px] font-semibold text-cafe mb-1.5">Nombre</label>
-              <input id="f-nombre" name="nombre" type="text" autocomplete="name" required
+              <input id="f-nombre" name="Nombre" type="text" autocomplete="name" required
                      class="w-full px-4 py-3 text-[16px] text-ink bg-white border border-linea rounded-lg focus:border-agua-500 transition-colors duration-200">
             </div>
             <div>
               <label for="f-tel" class="block text-[14px] font-semibold text-cafe mb-1.5">Teléfono / WhatsApp</label>
-              <input id="f-tel" name="telefono" type="tel" autocomplete="tel" required
+              <input id="f-tel" name="Teléfono o WhatsApp" type="tel" autocomplete="tel" required
                      class="w-full px-4 py-3 text-[16px] text-ink bg-white border border-linea rounded-lg focus:border-agua-500 transition-colors duration-200">
             </div>
             <div>
@@ -1034,13 +1051,13 @@ tailwind.config = {
               <!-- Texto de ayuda persistente en lugar de placeholder: el placeholder
                    desaparecía al escribir y no alcanzaba 4.5:1 (daba 2.10). -->
               <p id="f-ubicacion-ayuda" class="text-[13px] text-cafe/85 mb-1.5">Municipio y estado</p>
-              <input id="f-ubicacion" name="ubicacion" type="text" required
+              <input id="f-ubicacion" name="Ubicación del proyecto" type="text" required
                      aria-describedby="f-ubicacion-ayuda"
                      class="w-full px-4 py-3 text-[16px] text-ink bg-white border border-linea rounded-lg focus:border-agua-500 transition-colors duration-200">
             </div>
             <div>
               <label for="f-tipo" class="block text-[14px] font-semibold text-cafe mb-1.5">Tipo de proyecto</label>
-              <select id="f-tipo" name="tipo" required
+              <select id="f-tipo" name="Tipo de proyecto" required
                       class="w-full px-4 py-3 text-[16px] text-ink bg-white border border-linea rounded-lg focus:border-agua-500 transition-colors duration-200 cursor-pointer">
                 <option value="">Selecciona una opción</option>
                 <option>Perforación de pozo profundo</option>

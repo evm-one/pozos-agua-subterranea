@@ -39,7 +39,7 @@ La sección de trayectoria es un **corte estratigráfico**: cada etapa profesion
 | **Testimonios** | La sección existe comentada en el código; faltan testimonios reales |
 | **Datos de contacto** | Teléfonos, WhatsApp, horario y domicilio sin confirmar |
 | **Correo corporativo** | Se recomienda sustituir el `@hotmail` actual |
-| **Endpoint del formulario** | Falta definir destino del lead |
+| **Activar FormSubmit** | El formulario envía a `pozosub@hotmail.com` vía FormSubmit. Falta que alguien con acceso a ese buzón pulse el enlace del correo de confirmación del primer envío |
 | **Aviso de privacidad** | Por redactar y enlazar |
 | **Logotipo vectorial** | El archivo entregado es un PNG dentro de un envoltorio SVG, no vector real |
 | **Trámites CONAGUA** | Fila de objeciones y pregunta de FAQ comentadas hasta confirmar el servicio |
@@ -56,3 +56,18 @@ img/                           imágenes y logotipo web
 design-system/                 sistema de diseño del proyecto
 assets/                        documentos internos (fuera del repo, ver .gitignore)
 ```
+
+## Formulario
+
+El formulario de cotización usa [FormSubmit](https://formsubmit.co/), que no requiere servidor ni registro.
+
+- **Destino:** `pozosub@hotmail.com`
+- **Método:** `POST` a `https://formsubmit.co/pozosub@hotmail.com`
+- **Tras enviar:** redirige a `gracias.html`
+- **Antispam:** campo señuelo `_honey`; el captcha va desactivado para no meter una pantalla intermedia entre el usuario y el envío
+
+### Activación (obligatoria, una sola vez)
+
+FormSubmit no reenvía nada hasta que el buzón de destino confirma. Al primer envío manda un correo a `pozosub@hotmail.com` con un enlace de activación; hasta que alguien lo pulse, los envíos se pierden.
+
+Después de activar, FormSubmit facilita un alias con el que sustituir la dirección en el `action` para que el correo no quede a la vista de rastreadores de spam.
