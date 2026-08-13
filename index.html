@@ -142,6 +142,28 @@ tailwind.config = {
   @media (max-width:360px){
     section h1.display{ font-size:1.6875rem; overflow-wrap:break-word; }
   }
+
+  /* Tamaño del nombre en desktop — antes iba como utilidad text-[15px];
+     pasa a CSS para que la media query de móvil pueda sobrescribirlo. */
+  .hdr-name{ font-size:15px; }
+
+  /* ── HEADER EN MÓVIL ──────────────────────────────────────────────
+     Mismo tratamiento que la v2: el header sirve solo para identificar
+     a la empresa. El nombre llevaba `hidden sm:block`, así que bajo
+     640px sólo quedaba un isotipo de 40px y no había forma de saber de
+     quién era la página. El CTA se oculta porque el hero, justo debajo,
+     ya ofrece «Solicitar cotización» a ancho completo en la primera
+     pantalla. Desktop no cambia. */
+  @media (max-width:767px){
+    .chrome .hdr-cta{ display:none; }
+    .chrome .hdr-row{ height:auto; min-height:72px; padding-block:.75rem; align-items:center; }
+    .chrome .hdr-brand{ gap:.75rem; flex:1 1 auto; min-width:0; }
+    .chrome .hdr-logo{ width:3.25rem; height:3.25rem; }
+    .chrome .hdr-name{ font-size:1.0625rem; line-height:1.12; letter-spacing:-.01em; }
+  }
+  @media (max-width:400px){
+    .chrome .hdr-logo{ width:3rem; height:3rem; }
+  }
 </style>
 </head>
 
@@ -150,9 +172,9 @@ tailwind.config = {
 <a href="#contenido" class="skip">Saltar al contenido</a>
 
 <!-- ═══════════ 01 — HEADER STICKY ═══════════ -->
-<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-linea">
+<header class="chrome sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-linea">
   <div class="max-w-content mx-auto px-5 sm:px-8 lg:px-8">
-    <div class="flex items-center justify-between h-[72px] gap-4">
+    <div class="hdr-row flex items-center justify-between h-[72px] gap-4">
 
       <!-- Isotipo real del cliente, extraído con transparencia de
            assets/Logotipo PAS SVG.svg. Se acompaña del nombre en Archivo porque
@@ -160,10 +182,10 @@ tailwind.config = {
            PENDIENTE: el archivo entregado es un PNG de 5334px incrustado en un
            envoltorio SVG, no un vector real. Para producción conviene pedir el
            trazo vectorial o servir WebP/AVIF optimizado. -->
-      <a href="#" class="flex items-center gap-2.5 cursor-pointer shrink-0" aria-label="Pozos de Agua Subterránea — inicio">
+      <a href="#" class="hdr-brand flex items-center gap-2.5 cursor-pointer shrink-0" aria-label="Pozos de Agua Subterránea — inicio">
         <img src="img/logo-isotipo.png" alt="" width="40" height="40"
-             class="w-10 h-10 shrink-0" aria-hidden="true">
-        <span class="display-md text-cafe text-[15px] leading-[1.1] hidden sm:block">
+             class="hdr-logo w-10 h-10 shrink-0" aria-hidden="true">
+        <span class="hdr-name display-md text-cafe leading-[1.1]">
           Pozos de Agua<br>Subterránea
         </span>
       </a>
@@ -175,7 +197,7 @@ tailwind.config = {
         <a href="#contacto"    class="text-[14px] font-medium text-ink hover:text-agua-600 transition-colors duration-200 cursor-pointer">Contacto</a>
       </nav>
 
-      <div class="flex items-center gap-3 sm:gap-4">
+      <div class="hdr-cta flex items-center gap-3 sm:gap-4">
         <!-- POR VALIDAR: confirmar teléfono de atención vigente antes de publicar. -->
         <a href="tel:+523331158832" class="hidden md:flex items-center gap-2 font-mono text-[13px] text-cafe hover:text-agua-600 transition-colors duration-200 cursor-pointer">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
