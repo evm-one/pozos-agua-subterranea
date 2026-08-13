@@ -136,13 +136,6 @@ tailwind.config = {
     #rail .cursor,#rail .readout{ transition:none; }
   }
 
-  /* Corrige un desbordamiento preexistente a 320px: a ese ancho el H1 a 32px
-     no cabía en la columna y empujaba la página 12px hacia la derecha.
-     Sólo afecta a móviles muy estrechos; desktop queda intacto. */
-  @media (max-width:360px){
-    section h1.display{ font-size:1.6875rem; overflow-wrap:break-word; }
-  }
-
   /* Tamaño del nombre en desktop — antes iba como utilidad text-[15px];
      pasa a CSS para que la media query de móvil pueda sobrescribirlo. */
   .hdr-name{ font-size:15px; }
@@ -163,6 +156,47 @@ tailwind.config = {
   }
   @media (max-width:400px){
     .chrome .hdr-logo{ width:3rem; height:3rem; }
+  }
+
+  /* ── HERO EN MÓVIL — mismas proporciones que la v2 ────────────────
+     Sólo afecta a ≤767px. Desktop conserva sus valores actuales. */
+  @media (max-width:767px){
+    /* El header ya muestra la marca en grande, así que el eyebrow
+       repetía «Pozos de Agua Subterránea» a dos centímetros. */
+    .hero-eyebrow{ display:none; }
+
+    /* El tope de 19ch forzaba líneas de 14 caracteres y cinco renglones;
+       en móvil el ancho lo marca el viewport. */
+    h1.hero-h1{
+      max-width:none;
+      font-size:1.9375rem;
+      line-height:1.08;
+      letter-spacing:-.02em;
+      overflow-wrap:break-word;
+      margin-bottom:1.25rem;
+    }
+
+    /* Párrafo: mismos valores que .t-body-lg + .measure-tight de la v2. */
+    p.hero-lead{
+      font-size:1.0625rem;
+      line-height:1.62;
+      letter-spacing:-.003em;
+      max-width:52ch;
+      margin-bottom:1.75rem;
+    }
+
+    /* Botones apilados a ancho completo, con altura táctil mayor. */
+    .hero-actions{ flex-direction:column; align-items:stretch; gap:.75rem; }
+    .hero-actions .hero-btn{
+      width:100%;
+      padding-block:.9375rem;
+      font-size:1rem;
+      display:flex; align-items:center; justify-content:center;
+      text-align:center;
+    }
+  }
+  @media (max-width:400px){
+    h1.hero-h1{ font-size:1.75rem; }
   }
 </style>
 </head>
@@ -223,21 +257,21 @@ tailwind.config = {
     <div class="grid lg:grid-cols-[1.25fr_0.75fr] gap-10 lg:gap-14 items-end pt-14 sm:pt-20 lg:pt-24">
 
       <div class="pb-10 lg:pb-14">
-        <p class="eyebrow mb-5">Pozos de Agua Subterránea</p>
+        <p class="hero-eyebrow eyebrow mb-5">Pozos de Agua Subterránea</p>
 
-        <h1 class="display text-cafe text-[32px] sm:text-[40px] lg:text-[44px] mb-6 max-w-[19ch]">
+        <h1 class="hero-h1 display text-cafe text-[32px] sm:text-[40px] lg:text-[44px] mb-6 max-w-[19ch]">
           Perforación y soluciones para el aprovechamiento de agua subterránea.
         </h1>
 
-        <p class="text-[16px] sm:text-[17px] leading-[1.6] text-ink max-w-[46ch] mb-8">
+        <p class="hero-lead text-[16px] sm:text-[17px] leading-[1.6] text-ink max-w-[46ch] mb-8">
           Especialistas en perforación y equipamiento de pozos profundos, estudios hidráulicos y geohidrológicos, y diseño y construcción de obras hidráulicas.
         </p>
 
-        <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-          <a href="#contacto" class="bg-agua-500 hover:bg-agua-600 text-white text-[15px] font-semibold px-6 py-3.5 rounded-lg transition-colors duration-200 cursor-pointer">
+        <div class="hero-actions flex flex-wrap items-center gap-3 sm:gap-4">
+          <a href="#contacto" class="hero-btn bg-agua-500 hover:bg-agua-600 text-white text-[15px] font-semibold px-6 py-3.5 rounded-lg transition-colors duration-200 cursor-pointer">
             Solicitar cotización
           </a>
-          <a href="#servicios" class="border-[1.5px] border-cafe text-cafe hover:bg-cafe hover:text-white text-[15px] font-semibold px-6 py-3.5 rounded-lg transition-colors duration-200 cursor-pointer">
+          <a href="#servicios" class="hero-btn border-[1.5px] border-cafe text-cafe hover:bg-cafe hover:text-white text-[15px] font-semibold px-6 py-3.5 rounded-lg transition-colors duration-200 cursor-pointer">
             Conocer servicios
           </a>
         </div>
